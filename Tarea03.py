@@ -1,6 +1,10 @@
 import random
 
 #Se crea una clase pregunta con el fin de que se pueda utilizar más adelante en una clase examen y se puedan mostrar las preguntas
+"""
+Falta doctstring y seguir las buenas prácticas que es escribir los tipos de datos
+El resto está bien
+"""
 class Pregunta:
     def __init__(self, enunciado, opciones, respuesta_correcta):
         self.enunciado = enunciado
@@ -14,24 +18,40 @@ class Pregunta:
 #si on correctas o no
 class Examen:
     def __init__(self, preguntas):
+        """
+        Bien, pero para su proyecto editen eso de modo que no se repitan las preguntas en los diferentes intentos
+        """
         self.preguntas = preguntas
         self.preguntas_aleatorias = random.sample(preguntas, 10)
     
     def realizar_examen(self):
+        """
+        Esto no es tan relevante, no lo dejen aquí, esto en la parte del script de prueba está bien.
+        """
         nombre = input("Ingresa tu nombre: ")
         print(f"\n¡Hola {nombre}! Bienvenido al examen de Programación\n")
 
         respuestas = []
         correctas = []
         incorrectas = []
-        
+
+        """
+        Por el momento está bien aquí, pero consideren que en el proyecto la interfaz
+        va a ser también una clase por lo que no van a llamar a los widgets desde aquí,
+         de modo que deberán modificar esto para que obtegan los datos que necesitan y los muestren en la interfaz.
+        """
         for i, pregunta in enumerate(self.preguntas_aleatorias):
             print(f"Pregunta {i+1}: {pregunta.enunciado}")
             for j, opcion in enumerate(pregunta.opciones):
                 print(f"{j+1}. {opcion}")
             
             respuesta = input("Ingresa tu respuesta (1, 2 o 3): ")
-            
+
+            """
+            No queremos que le muestre el resultado hasta que se haya concluido el examen.
+            Aquí está muy simple que no se tiene que hacer una búsqueda de la pregunta para verificar
+            la respuesta ya que la verfican desde ahora pero no, se debe verificar hasta el final
+            """
             if pregunta.verificar_respuesta(respuesta):
                 print("¡Correcto!")
                 correctas.append(i+1)
@@ -39,6 +59,9 @@ class Examen:
                 print("Incorrecto.")
                 incorrectas.append(i+1)
 
+        """
+        Esto metando en otro método
+        """
         #Se le da la calificación obtenida al usuario y las preguntas que tuvo correctas y las incorrectas
         print(f"\n{nombre}, has contestado correctamente {len(correctas)} preguntas y {len(incorrectas)} preguntas incorrectamente.")
         print(f"Tu calificación es: {(len(correctas)/10)*10}/10")
